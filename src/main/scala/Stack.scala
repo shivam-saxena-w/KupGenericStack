@@ -4,7 +4,7 @@ class Stack[T]{
         stackElements = elementToPush :: stackElements
         stackElements
     }
-    def peek() : T = stackElements.head
+    def top() : T = stackElements.head
     def pop():Unit = stackElements = stackElements.drop(1)
     def isEmpty(): Boolean = if (stackElements.length == 0) true else false
 }
