@@ -2,34 +2,34 @@
 import org.scalatest.funsuite.AnyFunSuite
 
 class StackTestFile extends AnyFunSuite {
-  /** For testing, 2 elements are getting pusshed into the stack initially **/
-  val stackObj = new Stack[Int]
-  stackObj.push(1)
-  stackObj.push(2)
+  /**
+   * For testing, 2 elements are getting pushed into the stack initially
+   * We need to instantiate an Empty stack in order to crate one
+   */
+  val stackObj = new EmptyStack[Int]
 
   /*** Testing stack ***/
-  test("Pushing an object"){
-    assert(stackObj.push(3) == List(3,2,1))
+  //  Initially we know that stack is empty
+  test("Push function test"){
+    val pushTest = stackObj.push(12).push(13).push(14)
+    assert(pushTest.top == 14)
   }
 
+  //  isEmpty Function test, this should return true as we have pushed 2 elements in the stack
   test("Testing isEmpty function"){
-    assert(stackObj.isEmpty() == false)
+    val nonEmptyStack = stackObj.push(1)
+    assert(!nonEmptyStack.isEmpty())
   }
 
+  //  testing for top
   test("Testing for top()"){
-    assert(stackObj.top() == 3)
+    val topTest = stackObj.push(1).push(2)
+    assert(topTest.top == 2)
   }
 
+  //  testing pop function by emptying up the stack
   test("Popping from the stack"){
-    stackObj.pop()
-    stackObj.pop()
-    stackObj.pop()
-    assert(stackObj.stackElements == List())
-  }
-
-  /**Tryig to pop from an empty stack***/
-  test("Popping from empty stack"){
-    stackObj.pop()
-    assert(stackObj.stackElements == List())
+    val popTest = stackObj.push(1).push(2)
+    assert(popTest.pop().pop().isEmpty())
   }
 }

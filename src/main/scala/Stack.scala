@@ -1,10 +1,20 @@
-class Stack[T]{
-    var stackElements : List[T] = Nil
-    def push(elementToPush: T) : List[T] = {
-        stackElements = elementToPush :: stackElements
-        stackElements
-    }
-    def top() : T = stackElements.head
-    def pop():Unit = stackElements = stackElements.drop(1)
-    def isEmpty(): Boolean = if (stackElements.length == 0) true else false
+import scala.sys.{error, exit}
+
+trait Stack[T] {
+    def push(elementToPush: T): Stack[T] = new NonEmptyStack(elementToPush, this)
+    def pop(): Stack[T]
+    def top : T
+    def isEmpty(): Boolean
+}
+
+class EmptyStack[T] extends Stack[T] {
+    override def isEmpty(): Boolean = true
+    override def top: T = error("Empty Stack")
+    override def pop(): Stack[T] = error("Empty Stack")
+}
+
+class NonEmptyStack[T](element: T, stackTail: Stack[T]) extends Stack[T] {
+    override def isEmpty(): Boolean = false
+    override def top: T = element
+    override def pop(): Stack[T] = stackTail
 }
